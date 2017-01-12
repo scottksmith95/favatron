@@ -1,0 +1,12 @@
+extends ../layout
+
+block content
+  div.white.center.magic-align-con.lonely-authentication.p-top-sml.p-bottom
+    div.magic-align.skinny
+      span.logo.text(style="margin-bottom: 30px;") Confirm Account Deletion
+
+      form.form-horizontal(action='/account/delete', method='POST')
+        input(type='hidden', name='_csrf', value=_csrf)
+
+        div
+          input.btn-sml.btn-solid.btn-complement.btn-fixed(type='submit', value='Delete my account')

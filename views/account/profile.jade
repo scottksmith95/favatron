@@ -1,0 +1,115 @@
+extends ../layout
+
+block content
+  div.white.center.magic-align-con.lonely-authentication.p-top-sml.p-bottom
+    div.magic-align.skinny
+      span.logo.text(id="plan", style="margin-bottom: 30px;") Plan
+      if user.isPlanPaid()
+        h2.h-small.h-thin.highlight.p-bottom-sml You are currently on the Eternal plan. Thank you so much for your support!
+        a.btn-sml.btn-solid.btn-accent.btn-fixed(href="/upgrade") Change plan
+        br
+        br
+        if user.plan.canceled
+          h2.h-small.h-thin.highlight Your subscription expires #{user.getExpiration()} and will not renew.
+        else
+          h2.h-small.h-thin.highlight Your subscription will automatically renew #{user.getExpiration()}.
+      else
+         h2.h-small.h-thin.highlight.p-bottom-sml You are currently on the Free plan. Upgrade for greater storage, features, and to support Favatron!
+         a.btn-sml.btn-solid.btn-accent.btn-fixed(href="/upgrade") Upgrade to Eternal
+
+  div.white.center.magic-align-con.lonely-authentication.p-top-sml.p-bottom
+    div.magic-align.skinny
+      span.logo.text(id="integrations", style="margin-bottom: 30px;") Integrations
+
+      if user.readability
+        a.btn-sml.btn-solid.btn-complement.btn-fixed(href='/account/unlink/readability') Unlink your Readability account
+      else
+        a.btn-sml.btn-solid.btn-accent.btn-fixed(href='/auth/readability') Link your Readability account
+      br
+      br
+      if user.pocket
+        a.btn-sml.btn-solid.btn-complement.btn-fixed(href='/account/unlink/pocket') Unlink your Pocket account
+      else
+        a.btn-sml.btn-solid.btn-accent.btn-fixed(href='/auth/pocket') Link your Pocket account
+
+  div.white.center.magic-align-con.lonely-authentication.p-top-sml.p-bottom
+    div.magic-align.skinny
+      span.logo.text(id="options", style="margin-bottom: 30px;") Options
+
+      form.form-horizontal(action='/account/options', method='POST')
+        input(type='hidden', name='_csrf', value=_csrf)
+        div.input-wrap.clearfix
+          input.checkbox.fl(type='checkbox' name='include_no_links', id='include_no_links', value='1', checked=user.include_no_links)
+          label.checkboxLabel.fl(for='include_no_links') Include favorites without links?
+
+        div.input-wrap.clearfix
+          input.checkbox.fl(type='checkbox' name='enable_feed', id='enable_feed', value='1', checked=user.enable_feed)
+          label.checkboxLabel.fl(for='enable_feed') Enable RSS feed?
+
+        div.input-wrap.clearfix
+          input.checkbox.fl(type='checkbox' name='enable_api', id='enable_api', value='1', checked=user.enable_api)
+          label.checkboxLabel.fl(for='enable_api') Enable API? 
+            if !user.isPlanPaid()
+              a(href="/upgrade") (Requires Eternal Plan)
+
+        div.input-wrap.clearfix
+          label(for='send_email') Send email digest? (be sure to set email)
+          label.radioLabel
+            input.radio(type='radio', name='send_email', id='send_email', value='2', checked=user.send_email==2)
+            | Weekly
+          label.radioLabel
+            input.radio(type='radio', name='send_email', id='send_email', value='1', checked=user.send_email==1)
+            | Daily
+          label.radioLabel
+            input.radio(type='radio', name='send_email', id='send_email', value='0', checked=!user.send_email)
+            | No
+
+        div.input-wrap.clearfix
+          label(for='webhook') Webhook Url 
+            if !user.isPlanPaid()
+                a(href="/upgrade") (Requires Eternal Plan)
+          input.w-100(type='text', name='webhook', id='webhook', value='#{user.webhook}')
+
+        div
+          input.btn-sml.btn-solid.btn-accent.btn-fixed(type='submit', value='Update Options')
+
+  div.white.center.magic-align-con.lonely-authentication.p-top-sml.p-bottom
+    div.magic-align.skinny
+      span.logo.text(id="profile", style="margin-bottom: 30px;") Profile Information
+
+      form.comfy.m-bottom.clearfix(action='/account/profile', method='POST')
+        input(type='hidden', name='_csrf', value=_csrf)
+        div.input-wrap.clearfix
+          label(for='username') Username
+          input.w-100(type='text', name='username', id='username', value='#{user.username}')
+
+        div.input-wrap.clearfix
+          label(for='email') Email
+          input.w-100(type='email', name='email', id='email', value='#{user.email}')
+
+        div.input-wrap.clearfix
+          label(for='name') Name
+          input.w-100(type='text', name='name', id='name', value='#{user.name}')
+
+        div
+          input.btn-sml.btn-solid.btn-accent.btn-fixed(type='submit', value='Update Profile')
+
+  div.white.center.magic-align-con.lonely-authentication.p-top-sml.p-bottom
+    div.magic-align.skinny
+      span.logo.text(id="referral", style="margin-bottom: 30px;") Referral Program
+      h2.h-small.h-thin.highlight.p-bottom-sml Get 5 friends to sign up and get Favatron free for 1 year
+      h2.h-small.h-highlight.highlight.p-bottom-sml
+        a(href="https://favatron.com/?ref=#{user.twitter}", target="_blank") https://favatron.com/?ref=#{user.twitter}
+      a.btn-sml.btn-solid.btn-accent.btn-fixed(href="javascript:window.open('#{twitterReferralLink}', '_blank', 'width=500,height=300');void(0);", target="_blank") Share on Twitter
+      br
+      br
+      a.btn-sml.btn-solid.btn-accent.btn-fixed(href="javascript:window.open('#{facebookReferralLink}', '_blank', 'width=400,height=500');void(0);", target="_blank") Share on Facebook
+      br
+      br
+      h2.h-small.h-thin.highlight Friends signed up: #{user.referrals.length}
+
+  div.white.center.magic-align-con.lonely-authentication.p-top-sml.p-bottom
+    div.magic-align.skinny
+      span.logo.text(style="margin-bottom: 30px;") Life Changing Things
+
+      a.btn-sml.btn-solid.btn-complement.btn-fixed(href='/account/delete') Delete my account

@@ -1,0 +1,102 @@
+extends layout
+
+block content
+  section.white.p-top-sml.p-bottom
+    if favorites.length === 0
+      div.con.center
+        h1.h-big.highlight.p-bottom-sml Want to get Favatron free for 1 year?
+        h2.h-small.h-thin.highlight.p-bottom-sml Get 5 friends to sign up with your unique referral link:
+        h2.h-small.h-highlight.highlight.p-bottom-sml
+          a(href="https://favatron.com/?ref=#{user.twitter}", target="_blank") https://favatron.com/?ref=#{user.twitter}
+        a.btn-big.btn-solid.btn-accent(href="javascript:window.open('#{twitterReferralLink}', '_blank', 'width=500,height=300');void(0);", target="_blank", style="margin-right: 5px;") 
+          | Share on Twitter
+        a.btn-big.btn-solid.btn-accent(href="javascript:window.open('#{facebookReferralLink}', '_blank', 'width=400,height=500');void(0);", target="_blank", style="margin-left: 5px;") 
+          | Share on Facebook
+        h2.h-small.h-thin.highlight.p-top We are currently processing your tweets...
+      script.
+        !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
+    else
+      div.con
+        div.grid
+          div.clearfix(id="processing")
+          - for (var i = 0; i < favorites.length; ++i) {  
+            div.cell
+              div.fav-card
+                h4.fl 
+                  i.icon-small.pretty-date-icon(aria-hidden="true", data-icon="\ue039")
+                  span.pretty-date #{favorites[i].date}
+                if i === 0
+                  h4.features
+                    if user.send_email
+                      a(href="/account#options", title="Email digest is on")
+                        i.icon-small.feature-on(aria-hidden="true", data-icon="\ue007")
+                    else
+                      a(href="/account#options", title="Email digest is off")
+                        i.icon-small.feature-off(aria-hidden="true", data-icon="\ue007")
+                    if user.readability
+                      a(href="/account#integrations", title="Integration with Readability is on")
+                        i.icon-small.feature-on(aria-hidden="true", data-icon="\ue04d")
+                    else
+                      a(href="/account#integrations", title="Integration with Readability is off")
+                        i.icon-small.feature-off(aria-hidden="true", data-icon="\ue04d")
+                    if user.pocket
+                      a(href="/account#integrations", title="Integration with Pocket is on")
+                        i.icon-small.feature-on(aria-hidden="true", data-icon="\ue04e")
+                    else
+                      a(href="/account#integrations", title="Integration with Pocket is off")
+                        i.icon-small.feature-off(aria-hidden="true", data-icon="\ue04e")
+                    if user.enable_feed
+                      a(href="/account#options", title="RSS feed is turned on")
+                        i.icon-small.feature-on(aria-hidden="true", data-icon="\ue066")
+                    else
+                      a(href="/account#options", title="RSS feed is turned off")
+                        i.icon-small.feature-off(aria-hidden="true", data-icon="\ue066")
+                    if user.enable_api
+                      a(href="/account#options", title="Developer API is turned on")
+                        i.icon-small.feature-on(aria-hidden="true", data-icon="\ue023")
+                    else
+                      a(href="/account#options", title="Developer API is turned off")
+                        i.icon-small.feature-off(aria-hidden="true", data-icon="\ue023")
+                    if user.webhook
+                      a(href="/account#options", title="Webhooks are turned on")
+                        i.icon-small.feature-on(aria-hidden="true", data-icon="\ue041")
+                    else
+                      a(href="/account#options", title="Webhooks are turned off")
+                        i.icon-small.feature-off(aria-hidden="true", data-icon="\ue041")
+                div.clearfix
+                if favorites[i].source_image
+                  a(href='https://twitter.com/#{favorites[i].source_username}', target='_blank')
+                    img(src='#{favorites[i].source_image}')
+                span.name
+                  a(href='https://twitter.com/#{favorites[i].source_username}', target='_blank') #{favorites[i].source_name}
+                a(href='https://twitter.com/#{favorites[i].source_username}', target='_blank')
+                  span.username @#{favorites[i].source_username}
+              br
+              h3.fl
+                a.tweet-title(href='#{favorites[i].url}', target='_blank') #{favorites[i].title}
+              div.social-share.fl
+                a(href="javascript:window.open('#{favorites[i].twitterShareLink}', '_blank', 'width=500,height=300');void(0);" title="Share on Twitter")
+                  i.icon-small(aria-hidden="true", data-icon="\ue0fc")
+                a(href="javascript:window.open('#{favorites[i].facebookShareLink}', '_blank', 'width=400,height=500');void(0);" title="Share on Facebook")
+                  i.icon-small(aria-hidden="true", data-icon="\ue0fe")
+                a(href="javascript:window.open('#{favorites[i].googleplusShareLink}', '_blank', 'width=500,height=600');void(0);" title="Share on Google Plus")
+                  i.icon-small(aria-hidden="true", data-icon="\ue0d1")
+                a(href="javascript:window.open('#{favorites[i].linkedinShareLink}', '_blank', 'width=500,height=600');void(0);" title="Share on LinkedIn")
+                  i.icon-small(aria-hidden="true", data-icon="\ue109")
+                a(href="#{favorites[i].emailShareLink}" title="Share via Email")
+                  i.icon-small(aria-hidden="true", data-icon="\ue007")
+              div.clearfix
+              p #{favorites[i].description}
+              if !favorites[i].promotion
+                br
+                p
+                  a.tweet-link(href="#{favorites[i].tweet_link}", target="_blank") "#{favorites[i].source_text}" - #{favorites[i].source_username} on Twitter
+              p.m-bottom
+          - }
+            div.cell
+              if show_prev
+                a.btn-sml.btn-solid.btn-accent.fl(href="?page=#{prev_page}") Prev 20
+              if show_next
+                a.btn-sml.btn-solid.btn-accent.fr(href="?page=#{next_page}") Next 20
+    if user.tour
+      script(src="/js/lib/shepherd.min.js")

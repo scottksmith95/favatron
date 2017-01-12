@@ -1,0 +1,97 @@
+extends layout
+
+block content
+  section.white.p-top-sml.p-bottom.center.pricing
+    div.con
+      header
+        hgroup
+          h2.h-big.h-thin.highlight.m-bottom Upgrade for greater storage, features, and to help support Favatron!
+      div.grid.no-gutters.small-2
+        div.cell.fill.rounded
+          h3.h-underline.m-bottom Ephemeral
+          div
+            span.price.m-bottom &#36;0
+            strong / year
+          ul
+            li
+              strong Unlimited 
+              | favorites/day
+            li
+              strong 4 hour 
+              | check interval
+            li
+              strong 1 week 
+              | data retention
+            li Third party integrations
+            li Email digest
+            li RSS
+            li &nbsp;
+            li &nbsp;
+          if user.isPlanPaid()
+            if !user.plan.canceled
+              form(action="/downgrade" method="POST" id="formDowngrade")
+                input(type='hidden', name='_csrf', value=_csrf)
+                a.btn-big.btn-solid.w-100(href="#", id="btnDowngrade") Downgrade to this Plan
+
+                script.
+                  document.getElementById('btnDowngrade').addEventListener('click', function(e) {
+                    if (confirm('Are you sure you want to downgrade your account? Once your subscription ends any stored favorites older than 1 week will be deleted.')) {
+                      $('#formDowngrade').submit();
+                    }
+                    e.preventDefault();
+                  });
+            else
+              a.btn-big.btn-solid.w-100 Downgrades #{user.getExpiration()}
+          else
+            span.btn-big.btn-solid.w-100 Current Plan
+        span(style="margin: 0 10px;")
+        div.cell.fill.rounded.eternal
+          h3.h-underline.m-bottom Eternal
+          div
+            span.price.highlight.m-bottom &#36;15
+            strong.highlight / year
+          ul
+            li
+              strong.highlight Unlimited 
+              | favorites/day
+            li
+              strong.highlight 15 minute 
+              | check interval
+            li
+              strong.highlight Unlimited 
+              | data retention
+            li Third party integrations
+            li Email digest
+            li RSS
+            li Developer API
+            li Webhooks
+          if user.isPlanPaid()
+            span.btn-big.btn-solid.btn-accent.w-100 Current Plan
+          else
+            form(action="/upgrade" method="POST" id="formUpgrade")
+              input(type='hidden', name='_csrf', value=_csrf)
+              script(src="https://checkout.stripe.com/checkout.js")
+              a.btn-big.btn-solid.btn-accent.w-100(href="#", id="btnUpgrade") Upgrade to this Plan
+
+              script.
+                var handler = StripeCheckout.configure({
+                  key: '#{stripe_public_key}',
+                  image: '/img/logo-128.png',
+                  token: function(token) {
+                    $('#formUpgrade').append('<input type="hidden" name="token_id" value="' + token.id + '" />');
+                    $('#formUpgrade').append('<input type="hidden" name="token_email" value="' + token.email + '" />');
+                    $('#formUpgrade').submit();
+                  }
+                });
+                document.getElementById('btnUpgrade').addEventListener('click', function(e) {
+                  // Open Checkout with further options
+                  handler.open({
+                    name: 'Favatron',
+                    description: 'Yearly Eternal Plan ($15.00)',
+                    panelLabel: 'Subscribe {{amount}}',
+                    amount: 1500
+                  });
+                  e.preventDefault();
+                });
+        p.m-top &#42; Downgrading will NOT result in a loss of paid features until your year's subscription ends
+        p &#42; We also provide a buffer of 30 days in case you want to re-subscribe before losing data

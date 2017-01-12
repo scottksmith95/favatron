@@ -1,0 +1,21 @@
+header.white.simple-header
+  div.con    
+    div.fav-card(style="margin: 40px 0;")
+      a(href='/',)
+        img(src='/img/logo-trans-128.png')
+      span.name
+        a(href='/') Favatron
+      a(href='/', id="logo")
+        span.username Twitter favorite automaton
+      i.menu-trigger.btn-hollow.btn-subdue(aria-hidden="true", data-icon="\ue086", id="menu-trigger")
+      nav
+        if !user.isPlanPaid()
+          a(href="/upgrade", style="color: #9b479f;") Upgrade to Eternal
+        if user.enable_api
+          //- a(href='/api/users/#{user.username}') User Api
+          a(id="nav-api", href='/api/users/#{user.username}/favorites?page=1&page_size=20&sort=source.id&sort_order=descending') Api
+            //- a(href='/api/users/#{user.username}/queue?page=1&page_size=20&sort=created&sort_order=descending') Queue Api
+        if user.enable_feed
+          a(id="nav-feed", href='/api/users/#{user.username}/feed') RSS Feed
+        a(id="nav-account", href="/account") Manage Account
+        a(href="/logout") Sign Out

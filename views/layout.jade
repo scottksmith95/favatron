@@ -1,0 +1,40 @@
+doctype html
+!= "<!--[if IE 8]><html class=\"phlat transitions no-js lt-ie9\"><![endif]-->"
+!= "<!--[if gt IE 8]><!-->"
+html.phlat.transitions.no-js
+  != "<!--<![endif]-->"
+  head
+    title #{title} | Favatron
+    include partials/head
+  body
+    include partials/navigation
+    include partials/flash
+    block content
+    include partials/footer
+    != js('application')
+    include partials/ga
+    if production
+      if user
+        script(id='IntercomSettingsScriptTag').
+          window.intercomSettings = {
+            user_hash: '#{user_hash}',
+            user_id: '#{user.twitter}',
+            name: '#{user.name}',
+            email: '#{user.email}',
+            created_at: '#{user.created.getTime()/1000}',
+            app_id: "yo27vsu8"
+          };
+        script.
+          (function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://static.intercomcdn.com/intercom.v1.js';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})()
+        script.
+          UserVoice=window.UserVoice||[];(function(){var uv=document.createElement('script');uv.type='text/javascript';uv.async=true;uv.src='//widget.uservoice.com/Ia7AP1CbFRstoXY3hCpBVA.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(uv,s)})();
+          UserVoice.push(['set', {
+            accent_color: '#9b479f',
+            trigger_color: 'white',
+            trigger_background_color: '#9b479f'
+          }]);
+          UserVoice.push(['identify', {
+            email: '#{user.email}'
+          }]);
+          UserVoice.push(['addTrigger', { mode: 'contact', trigger_position: 'bottom-right' }]);
+          UserVoice.push(['autoprompt', {}]);

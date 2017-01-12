@@ -1,0 +1,178 @@
+doctype html
+!= "<!--[if IE 8]><html class=\"phlat transitions no-js lt-ie9\"><![endif]-->"
+!= "<!--[if gt IE 8]><!-->"
+html.phlat.transitions.no-js
+  != "<!--<![endif]-->"
+  head
+    title Favatron - Automated bookmark and read later service for Twitter favorites
+    include partials/head
+  body
+    != "<!--[if lt IE 8]><p class=\"chromeframe\">Your web browser is very old. Please <a href=\"http://browsehappy.com/\">upgrade to a modern web browser</a> to experience this website.</p><![endif]-->"
+    
+    include partials/flash
+
+    section.accent.center.p-top
+      div.con
+        header
+          hgroup
+            h1.h-huge.h-thin.highlight(style="margin-bottom: 10px;") Favatron
+            h2.h-small.h-thin.m-bottom.highlight Automated bookmark and read later service for Twitter favorites
+        div.clearfix
+          a.btn-huge.btn-hollow.btn-transparent(href="/auth/twitter") Sign in with Twitter
+        p.p-bottom
+    
+    section.neutral.p-top.p-bottom.center
+      div.con
+        header
+          h1.h-underline.m-bottom How it Works
+        div.grid.small-4.clearfix
+          div.cell
+            i.icon-large.highlight.m-bottom(aria-hidden="true" data-icon="\ue0fc")
+            p
+              strong.highlight Step 1
+            p Continue favoriting interesting tweets on Twitter.
+          div.cell
+            i.icon-large.highlight.m-bottom(aria-hidden="true" data-icon="\ue08c")
+            p
+              strong.highlight Step 2
+            p Your favorites are automatically processed and stored.
+          div.cell
+            i.icon-large.highlight.m-bottom(aria-hidden="true" data-icon="\ue04e")
+            p
+              strong.highlight Step 3
+            p Favorites containing links are expanded and summarized.
+          div.cell
+            i.icon-large.highlight.m-bottom(aria-hidden="true" data-icon="\ue051")
+            p
+              strong.highlight Step 4
+            p Access favorites via API, RSS, Readability, Pocket, and more.
+    
+    section.white.center.p-top.p-bottom
+      div.con
+        header
+          hgroup
+            h1.h-big.h-thin.highlight.m-bottom Favorite tweets and we take care of the rest
+        div.grid.small-3.medium-3
+          div.clearfix
+            div.cell
+              i.icon-large.highlight.m-bottom(aria-hidden="true" data-icon="\ue017")
+              p
+                strong.highlight Link Processing
+              p Each favorited tweet is checked for web links. For each link found we analyze the page's contents to build a summary.
+            div.cell
+              i.icon-large.highlight.m-bottom(aria-hidden="true" data-icon="\ue04d")
+              p
+                strong.highlight Read Later Services
+              p Like to read articles with Readability or Pocket? We provide integrations to push any links found automatically.
+            div.cell
+              i.icon-large.highlight.m-bottom(aria-hidden="true" data-icon="\ue007")
+              p
+                strong.highlight Email Digest
+              p Choose between an optional daily or weekly email digest containing your processed and summarized favorites.
+          div.clearfix
+            div.cell
+              i.icon-large.highlight.m-bottom(aria-hidden="true" data-icon="\ue066")
+              p
+                strong.highlight RSS
+              p Prefer consuming your information via RSS? We build and provide an RSS feed for all of your processed favorites.
+            div.cell
+              i.icon-large.highlight.m-bottom(aria-hidden="true" data-icon="\ue023")
+              p
+                strong.highlight Developer API
+              p All data is available via a RESTful API so you can build your own integrations and services.
+            div.cell
+              i.icon-large.highlight.m-bottom(aria-hidden="true" data-icon="\ue041")
+              p
+                strong.highlight Webhooks
+              p Let us notify you when new favorites are processed and added so you don't have to keep checking.
+
+    section.neutral.p-top.p-bottom.testimonials-bubble
+      div.con
+        header.center
+          hgroup
+            h1.h-underline.m-bottom Word On The Street
+        div.grid.small-3
+          div.cell
+            blockquote
+              p.fill.rounded &quot;Such a brilliant tool for all of us who use favorites as a way to mark stuff to read later.&quot;
+                i.arrow-down
+              footer
+                img.rounded(src="https://pbs.twimg.com/profile_images/669989538517880832/OOgJPBHY.jpg")
+                div.fl
+                  small.small
+                    strong.highlight 
+                      a(href="https://twitter.com/maddiegwilson", target="_blank") Maddie Wilson
+          div.cell
+            blockquote
+              p.fill.rounded &quot;Meet favatron, a great way to push your twitter favorites as a feed to other places.&quot;
+                i.arrow-down
+              footer
+                img.rounded(src="https://pbs.twimg.com/profile_images/434089744385839104/wM8iq60E.jpeg")
+                div.fl
+                  small.small
+                    strong.highlight 
+                      a(href="https://twitter.com/thabofletcher", target="_blank") Thabo Fletcher
+          div.cell
+            blockquote
+              p.fill.rounded &quot;Favatron's reminders are incredibly handy. I totally forgot about articles I fav'd yesterday.&quot;
+                i.arrow-down
+              footer
+                img.rounded(src="https://pbs.twimg.com/profile_images/517479446514003968/IS8Cedcj.jpeg")
+                div.fl
+                  small.small
+                    strong.highlight 
+                      a(href="https://twitter.com/meusPartum", target="_blank") Drew Dahlman
+
+    section.white.p-top.p-bottom.center.pricing
+      div.con
+        header
+          hgroup
+            h1.h-underline.m-bottom Yearly Pricing
+            h2.h-big.h-thin.highlight.m-bottom Choose the plan that is right for you
+        div.grid.no-gutters.small-2
+          div.cell.fill.rounded
+            h3.h-underline.m-bottom Ephemeral
+            div
+              span.price.m-bottom &#36;0
+              strong / year
+            ul
+              li
+                strong Unlimited 
+                | favorites/day
+              li
+                strong 4 hour 
+                | check interval
+              li
+                strong 1 week 
+                | data retention
+              li Third party integrations
+              li Email digest
+              li RSS
+              li &nbsp;
+              li &nbsp;
+          span(style="margin: 0 10px;")
+          div.cell.fill.rounded.eternal
+            h3.h-underline.m-bottom Eternal
+            div
+              span.price.highlight.m-bottom &#36;15
+              strong.highlight / year
+            ul
+              li
+                strong.highlight Unlimited 
+                | favorites/day
+              li
+                strong.highlight 15 minute 
+                | check interval
+              li
+                strong.highlight Unlimited 
+                | data retention
+              li Third party integrations
+              li Email digest
+              li RSS
+              li Developer API
+              li Webhooks
+        p.m-top &#42; All plans can be changed or cancelled anytime
+
+    include partials/footer
+    != js('application')
+    include partials/ga

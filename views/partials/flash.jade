@@ -1,0 +1,16 @@
+#flash
+  if messages.errors
+    div.con
+      .alert.alert-danger
+        for error in messages.errors
+          div= error.msg
+  if messages.info
+    div.con
+      .alert.alert-info
+        for info in messages.info
+          div= info.msg
+  if messages.success
+    div.con
+      .alert.alert-success
+        for success in messages.success
+          div= success.msg
