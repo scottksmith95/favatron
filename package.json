@@ -5,10 +5,10 @@
   "main": "./app.js",
   "author": "Scott Smith",
   "license": "Corporate",
-  "homepage": "https://favatron.com",
+  "homepage": "http://scottksmith.com",
   "repository": {
     "type": "git",
-    "url": "https://github.com/scottksmith95/twitatron.git"
+    "url": "https://github.com/scottksmith95/favatron.git"
   },
   "engine": "node",
   "dependencies": {
