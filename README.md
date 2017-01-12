@@ -7,7 +7,7 @@ You will need to look at secrets.js and set your configuration values there loca
 
 Some things that need to be done
 
-1. Remove all reference to Readability since their API has bee deprecated.
+1. Remove all reference to Readability since their API has been deprecated.
 2. Set something up to run the files starting with webjob_ 
 
 Don't forget to run ```npm update``` in order to pull down the node modules.
