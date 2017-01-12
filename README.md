@@ -9,3 +9,7 @@ Some things that need to be done
 
 1. Remove all reference to Readability since their API has bee deprecated.
 2. Set something up to run the files starting with webjob_ 
+
+I am very open to others managing this and will add you as collaborators will full access if you want. Just let me know. 
+
+Enjoy!
